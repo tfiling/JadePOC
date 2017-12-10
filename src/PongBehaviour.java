@@ -20,6 +20,19 @@ public class PongBehaviour extends Behaviour {
         } catch (InterruptedException e) {
             printLog(e.getMessage());
         }
+        sendProperMessage();
+        sendGarbageMessage();
+    }
+
+    private void sendGarbageMessage() {
+        printLog("sending garbage message");
+        ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+        msg.addReceiver(new AID("pingAgent", false));
+        msg.setContent("garbage$%@#%@#");
+        this.myAgent.send(msg);
+    }
+
+    private void sendProperMessage() {
         printLog("sending pong message");
         ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
         msg.addReceiver(new AID("pingAgent", false));
