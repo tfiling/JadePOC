@@ -49,17 +49,11 @@ public class Main {
         {
             Object[] pingAgentArgs = new Object[1];
             pingAgentArgs[0] = TestAgent.PingPongType.PING;
-            cont.createNewAgent("pingAgent", "TestAgent", pingAgentArgs).start();
-        } catch (StaleProxyException e)
-        {
-            e.printStackTrace();
-        }
-
-        try
-        {
-            Object[] pingAgentArgs = new Object[1];
+            cont.createNewAgent("pingAgent1", "TestAgent", pingAgentArgs.clone()).start();
+            pingAgentArgs[0] = TestAgent.PingPongType.PING;
+            cont.createNewAgent("pingAgent2", "TestAgent", pingAgentArgs.clone()).start();
             pingAgentArgs[0] = TestAgent.PingPongType.PONG;
-            cont.createNewAgent("pongAgent", "TestAgent", pingAgentArgs).start();
+            cont.createNewAgent("pongAgent", "TestAgent", pingAgentArgs.clone()).start();
         } catch (StaleProxyException e)
         {
             e.printStackTrace();
@@ -74,7 +68,7 @@ public class Main {
         System.out.println("joined");
         try
         {
-            Thread.sleep(10000);
+            Thread.sleep(6000);
             cont.kill();
             mainContainer.kill();
         } catch (StaleProxyException e)
